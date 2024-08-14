@@ -172,12 +172,12 @@ MEDIA_URL ='/media/'
 
 # Email settings for sending password reset emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.example.com'  # Replace with your SMTP server
+EMAIL_HOST = 'smtp.yandex.com'  # Replace with your SMTP server
 EMAIL_PORT = 587  # Typically 587 for TLS
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your-email@example.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'your-email-password'  # Replace with your email password
-DEFAULT_FROM_EMAIL = 'webmaster@example.com'  # Default from email
+EMAIL_HOST_USER = 'bagdanbaidov@yandex.ru'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'soifvagttlkewbjl'  # Replace with your email password
+DEFAULT_FROM_EMAIL = 'bagdanbaidov@yandex.ru'  # Default from email
 
 CORS_ALLOW_ALL_ORIGINS =True
 
