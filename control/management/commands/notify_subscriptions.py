@@ -1,33 +1,33 @@
-from django.core.management.base import BaseCommand
-from django.core.mail import send_mail
+from django.core.management import call_command
+from django.test import TestCase
+from django.core import mail
 from django.utils import timezone
 from datetime import timedelta
 from control.models import SubscriptionProfile
+from django.conf import settings
 
-class Command(BaseCommand):
-    help = 'Send email notifications to users with subscriptions expiring in 7 days'
-
-    def handle(self, *args, **kwargs):
+class SendExpirationNotificationsTest(TestCase):
+    def setUp(self):
+        # Set up the test environment
         today = timezone.now().date()
-        target_date = today + timedelta(days=7)
-        subscriptions = SubscriptionProfile.objects.filter(
-            paid_subscription_expiry=target_date
+        # Create a test user and subscription profile expiring in 7 days
+        self.user = User.objects.create_user(username='testuser', email='testuser@example.com', password='password')
+        self.subscription = SubscriptionProfile.objects.create(
+            user=self.user,
+            paid_subscription_expiry=today + timedelta(days=7)  # Set expiry date to 7 days from today
         )
+        # Use console backend for testing
+        settings.EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-        for subscription in subscriptions:
-            user = subscription.user
-            subject = 'Your subscription is expiring soon'
-            message = (
-                f'Hi {user.username},\n\n'
-                f'Your subscription is set to expire on {subscription.paid_subscription_expiry}. '
-                'Please renew it to avoid any interruption in your services.\n\n'
-                'Thank you,\nThe Team'
-            )
-            send_mail(
-                subject,
-                message,
-                'webmaster@example.com',  # Replace with your email address
-                [user.email]
-            )
-        
-        self.stdout.write(self.style.SUCCESS('Successfully sent subscription expiration notifications.'))
+    def test_send_expiration_notifications(self):
+        # Call the management command
+        call_command('send_subscription_notifications')
+
+        # Check that an email has been sent
+        self.assertEqual(len(mail.outbox), 1)
+        email = mail.outbox[0]
+
+        # Verify email details
+        self.assertEqual(email.subject, 'Your subscription is expiring soon')
+        self.assertEqual(email.to, ['testuser@example.com'])
+        self.assertIn('Your subscription is set to expire on', email.body)

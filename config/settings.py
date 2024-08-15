@@ -148,7 +148,7 @@ SIMPLE_JWT = {
 
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -187,6 +187,6 @@ YANDEX_DISK_TOKEN ='y0_AgAAAAB1jK60AAw61AAAAAENKlQ1AAD5lWw_181JMJFbUFj430taKD9rg
 
 STATIC_URL = '/assets/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/assets')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
