@@ -25,9 +25,10 @@ def payment_email(request):
     # Extract tariff and INN from the request data
     tariff = request.data.get('tariff')
     inn = request.data.get('inn')
+    period = request.data.get('period')
 
-    if not tariff or not inn:
-        return Response({"error": "Tariff and INN are required."}, status=400)
+    if not tariff or not inn or not period:
+        return Response({"error": "Tariff, INN, and period are required."}, status=400)
 
     # Get list of admin emails
     admins = ['bagdanbaidov@yandex.ru']  # List format
@@ -39,15 +40,16 @@ def payment_email(request):
     message = f"""
     Уважаемый {inn},
 
-    Спасибо что пользуетесь нашим сервисом.
+    Спасибо, что пользуетесь нашим сервисом.
 
     Выбранный тариф: {tariff}
-    Оплатите подписку в ближайшее время. 
-    Реквизиты находятся на сайте.
-    И в скором времени ваша подписка будет активирована.
+    Период подписки: {period}
 
+    Пожалуйста, оплатите подписку в ближайшее время. 
+    Реквизиты находятся на сайте, и вскоре ваша подписка будет активирована.
 
-    StorageHills
+    С уважением,
+    Команда StorageHills
     """
     subject = 'Оплата StorageHills'
 
