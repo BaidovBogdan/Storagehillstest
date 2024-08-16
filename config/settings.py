@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x6*%^22q!7=or*@_m+yz2^1-w00g(zgv8u)5yu4_6nsz@0#1+s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
@@ -189,4 +189,15 @@ STATIC_URL = '/assets/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/assets')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "StorageHills",
+
+
+    # Logo to use for your site, must be present in static files, used for brand on top left
+    "site_logo": 'logo.png',
+
+
+}
 
