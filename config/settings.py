@@ -198,6 +198,8 @@ JAZZMIN_SETTINGS = {
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": 'logo.png',
 
+    "site_icon": 'icon-CH4P4rUN.png',
+
 
 }
 
