@@ -17,9 +17,83 @@ from config.settings import YANDEX_DISK_TOKEN
 
 
 
+from docx import Document
+from io import BytesIO
+from django.core.mail import EmailMessage
+import os
+
+def generate_and_send_invoice(context, template_path, recipient_email):
+    """
+    Generate a .docx invoice, replace placeholders, and send it via email.
+
+    :param context: A dictionary containing the data to replace placeholders in the template.
+    :param template_path: The path to the .docx template file.
+    :param recipient_email: The email address to send the invoice to.
+    """
+    # Load the template document
+    doc = Document(template_path)
+
+    # Replace placeholders with actual data in paragraphs
+    for paragraph in doc.paragraphs:
+        for key, value in context.items():
+            if f'{{{key}}}' in paragraph.text:
+                paragraph.text = paragraph.text.replace(f'{{{key}}}', str(value))
+
+    # Replace placeholders with actual data in tables
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for key, value in context.items():
+                    if f'{{{key}}}' in cell.text:
+                        cell.text = cell.text.replace(f'{{{key}}}', str(value),)
+    # Save the modified document to a BytesIO object (in-memory file)
+    doc_io = BytesIO()
+    doc.save(doc_io)
+    doc_io.seek(0)  # Move the cursor to the beginning of the file
+
+    # Prepare the email
+    email = EmailMessage(
+        subject='Generated Invoice',
+        body='Please find the attached invoice document.',
+        # Replace with your email or settings.DEFAULT_FROM_EMAIL
+        to=[recipient_email],
+    )
+    
+    # Attach the .docx file
+    email.attach('filled_invoice.docx', doc_io.read(), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    
+    # Send the email
+    email.send()
+
+    return True  # Optionally return True when the function completes successfully
+
+
+
+
+
 @api_view(['POST'])  # Assuming POST request for sending emails
 @permission_classes([IsAuthenticated])  # Require authentication
 def payment_email(request):
+    context = {
+  "tariff": "24000 руб.",
+  "inn": "1234567899",
+  "period": "12 месяцев",
+  "price": "24000 руб.",
+  "account_number": "1-18.08.24",
+  "date": "18.08.2024",
+  "time": "12 месяцев",
+  "semi_price": "2000 руб./мес",
+  "quantity": "1",
+  "priceStr": "двадцать четыре тысячи",
+  "quantityStr": "один",
+  "recipient": "Криворучко Евгений Витальевич",
+  "payer": "Захарченко Михаил Юрьевич"
+}
+    template_path = os.path.join(settings.MEDIA_ROOT, 'instance.docx')
+    generate_and_send_invoice(request.data,template_path,request.user.email)
+
+    
+    garbage="""
     print(request.data)
     # Extract tariff and INN from the request data
     tariff = request.data.get('tariff')
@@ -36,7 +110,7 @@ def payment_email(request):
     customer_emails = [request.user.email]  # List format
 
     # Construct the email message
-    message = f"""
+    message = f
     Уважаемый {inn},
 
     Спасибо, что пользуетесь нашим сервисом.
@@ -49,7 +123,7 @@ def payment_email(request):
 
     С уважением,
     Команда StorageHills
-    """
+    
     subject = 'Оплата StorageHills'
 
     # Send email to admins
@@ -69,7 +143,7 @@ def payment_email(request):
         customer_emails,
         fail_silently=False,
     )
-
+"""
     return Response({"message": "Emails sent successfully!"})
 
 def react_app(request):
