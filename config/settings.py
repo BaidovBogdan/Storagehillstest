@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x6*%^22q!7=or*@_m+yz2^1-w00g(zgv8u)5yu4_6nsz@0#1+s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['*']
@@ -198,7 +198,7 @@ JAZZMIN_SETTINGS = {
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": 'logo.png',
 
-    "site_icon": 'icon-CH4P4rUN.png',
+    "site_icon": 'icon.png',
 
 
 }
