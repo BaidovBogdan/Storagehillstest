@@ -22,6 +22,40 @@ from io import BytesIO
 from django.core.mail import EmailMessage
 import os
 
+from datetime import date
+from .models import Account, SubscriptionProfile
+from .serializers import AccountSerializer
+
+def handle_post_request(request):
+    try:
+        # Retrieve the subscription profile for the current user
+        subscription_profile = SubscriptionProfile.objects.get(user=request.user)
+    except SubscriptionProfile.DoesNotExist:
+        return {"detail": "Subscription profile not found."}
+    
+    # Handle POST request: Create or update today's account
+    if request.method == 'POST':
+        account, created = Account.objects.get_or_create(
+            profile=subscription_profile,
+            created=date.today(),
+            defaults={'updated': 0}
+        )
+        if not created:
+            # Update the existing account
+            account.updated += 1
+            account.save()
+        
+        # Serialize and return the account data
+        serializer = AccountSerializer(account)
+        return serializer.data
+
+    # If the method is not POST, return a method not allowed response
+    return {"detail": "Method not allowed."}
+
+
+
+
+
 
 
 def generate_and_send_invoice(context, template_path, recipient_email):
@@ -63,7 +97,7 @@ def generate_and_send_invoice(context, template_path, recipient_email):
     
     
     # Attach the .docx file
-    email.attach('filled_invoice.docx', doc_io.read(), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    email.attach(f"{context['account_number']}.docx", doc_io.read(), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     
     # Send the email
     email.send()
@@ -78,9 +112,14 @@ def generate_and_send_invoice(context, template_path, recipient_email):
 @api_view(['POST'])  # Assuming POST request for sending emails
 @permission_classes([IsAuthenticated])  # Require authentication
 def payment_email(request):
-    
+    result = handle_post_request(request)
+    context = request.data
+    context['account_number'] = result['value']
+    print(context)
+    # Process the result further if needed
+    print(result['value'])
     template_path = os.path.join(settings.MEDIA_ROOT, 'instance.docx')
-    send_is = generate_and_send_invoice(request.data,template_path,request.user.email)
+    send_is = generate_and_send_invoice(context,template_path,request.user.email)
     if send_is : 
         return Response({"message": "письмо отправлено!"})
     return Response({"message": "письмо не отправлено"}, status=status.HTTP_400_BAD_REQUEST)
