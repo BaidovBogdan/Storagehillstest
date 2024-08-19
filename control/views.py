@@ -97,7 +97,7 @@ def generate_and_send_invoice(context, template_path, recipient_email):
     
     
     # Attach the .docx file
-    email.attach(f"{context['account_number']}.docx", doc_io.read(), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    email.attach(f"Счет-{context['account_number']}.docx", doc_io.read(), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     
     # Send the email
     email.send()
@@ -133,4 +133,3 @@ class SubscriptionProfileDetailView(generics.RetrieveAPIView):
     def get_object(self):
         # Получаем профиль подписки текущего аутентифицированного пользователя
         return self.request.user.subscription_profile
-

@@ -43,12 +43,12 @@ class SubscriptionProfile(models.Model):
 from datetime import date
 
 class Account(models.Model):
-    profile = models.ForeignKey(SubscriptionProfile, on_delete=models.CASCADE)  # Привязка к профилю пользователя
+    profile = models.ForeignKey(SubscriptionProfile, on_delete=models.CASCADE , verbose_name='Профиль')  # Привязка к профилю пользователя
     updated = models.IntegerField(default=0)  # Счётчик обновлений
     created = models.DateField(default=date.today)  # Дата создания, по умолчанию - сегодня
 
     def get_value(self):
-        return f'{self.updated}{self.created.strftime("%d%m%Y")}'
+        return f'{self.updated + 1}{self.created.strftime("%d%m%Y")}'
 
     def save(self, *args, **kwargs):
         # Если для профиля на сегодня уже есть запись, обновляем счётчик
