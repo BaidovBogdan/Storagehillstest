@@ -175,15 +175,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.com'  # Replace with your SMTP server
 EMAIL_PORT = 587  # Typically 587 for TLS
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'bagdanbaidov@yandex.ru'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'soifvagttlkewbjl'  # Replace with your email password
-DEFAULT_FROM_EMAIL = 'bagdanbaidov@yandex.ru'  # Default from email
+
+
+YANDEX_DISK_TOKEN ='y0_AgAAAAB3m1-uAAw5cwAAAAEM2fv6AABEBECLS5FK6rZOGzOizBPzJMFjrw'
+
+EMAIL_HOST_USER = 'storagehills@yandex.ru'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'awobepnopizzisuq'  # Replace with your email password
+DEFAULT_FROM_EMAIL = 'storagehills@yandex.ru'  # Default from email
+
+
 
 CORS_ALLOW_ALL_ORIGINS =True
-
-
-
-YANDEX_DISK_TOKEN ='y0_AgAAAAB1jK60AAw61AAAAAENKlQ1AAD5lWw_181JMJFbUFj430taKD9rgw'
 
 STATIC_URL = '/assets/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/assets')]

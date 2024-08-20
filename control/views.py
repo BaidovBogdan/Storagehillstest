@@ -60,11 +60,17 @@ def handle_post_request(request):
 
 def generate_and_send_invoice(context, template_path, recipient_email):
 
-    admins = ['bagdanbaidov@yandex.ru']
+    admins = ['storagehills@yandex.ru']
 
-    message_body = "text"
+    message_body = f"""Спасибо, что пользуетесь нашим сервисом. 
+    Выбранный тариф: {context['tariff']}
+    Период подписки: {context['period']}
+ 
+    Пожалуйста, оплатите подписку в ближайшее время. 
+    С уважением, 
+    Команда StorageHills."""
 
-    message_subject = "subject"
+    message_subject = f"""Оплата StorageHills {context['inn']}. Счет {context['account_number']}"""
 
     # Load the template document
     doc = Document(template_path)
