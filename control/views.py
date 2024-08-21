@@ -59,7 +59,6 @@ def handle_post_request(request):
 
 
 def generate_and_send_invoice(context, template_path, recipient_email):
-
     admins = ['storagehills@yandex.ru']
 
     message_body = f"""Спасибо, что пользуетесь нашим сервисом. 
@@ -104,11 +103,9 @@ def generate_and_send_invoice(context, template_path, recipient_email):
     
     # Attach the .docx file
     email.attach(f"Счет-{context['account_number']}.docx", doc_io.read(), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-    
     # Send the email
     email.send()
     
-
     return True  # Optionally return True when the function completes successfully
 
 
@@ -121,9 +118,7 @@ def payment_email(request):
     result = handle_post_request(request)
     context = request.data
     context['account_number'] = result['value']
-    print(context)
     # Process the result further if needed
-    print(result['value'])
     template_path = os.path.join(settings.MEDIA_ROOT, 'instance.docx')
     send_is = generate_and_send_invoice(context,template_path,request.user.email)
     if send_is : 

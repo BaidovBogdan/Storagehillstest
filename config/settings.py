@@ -172,16 +172,16 @@ MEDIA_URL ='/media/'
 
 # Email settings for sending password reset emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.com'  # Replace with your SMTP server
+EMAIL_HOST = 'smtp.mail.ru'  # Replace with your SMTP server
 EMAIL_PORT = 587  # Typically 587 for TLS
 EMAIL_USE_TLS = True
 
 
-YANDEX_DISK_TOKEN ='y0_AgAAAAB3m1-uAAw5cwAAAAEM2fv6AABEBECLS5FK6rZOGzOizBPzJMFjrw'
+YANDEX_DISK_TOKEN ='y0_AgAAAAB3m1-uAAxOsgAAAAEObF5bAACANzGuoDdJB6K9MDpl7kfN7nM6mA'
 
-EMAIL_HOST_USER = 'storagehills@yandex.ru'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'awobepnopizzisuq'  # Replace with your email password
-DEFAULT_FROM_EMAIL = 'storagehills@yandex.ru'  # Default from email
+EMAIL_HOST_USER = 'info@storagehills.ru'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'wGLk6vBaAQeF1cYNr3x4'  # Replace with your email password
+DEFAULT_FROM_EMAIL = 'info@storagehills.ru'  # Default from email
 
 
 
