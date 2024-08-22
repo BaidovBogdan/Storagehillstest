@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x6*%^22q!7=or*@_m+yz2^1-w00g(zgv8u)5yu4_6nsz@0#1+s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.storagehills.ru','storagehills.ru',]
 
 
 # Application definition
@@ -61,7 +61,8 @@ MIDDLEWARE = [
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-CORS_ALLOW_ALL_ORIGINS = True
+
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -183,9 +184,15 @@ EMAIL_HOST_USER = 'info@storagehills.ru'  # Replace with your email address
 EMAIL_HOST_PASSWORD = 'wGLk6vBaAQeF1cYNr3x4'  # Replace with your email password
 DEFAULT_FROM_EMAIL = 'info@storagehills.ru'  # Default from email
 
+CORS_ALLOWED_ORIGINS = [
+    "https://storagehills.ru",
+    "https://www.storagehills.ru",
+]
 
-
-CORS_ALLOW_ALL_ORIGINS =True
+CSRF_TRUSTED_ORIGINS = [
+    'https://storagehills.ru',
+    'https://www.storagehills.ru',
+]
 
 STATIC_URL = '/assets/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/assets')]

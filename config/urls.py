@@ -10,7 +10,7 @@ react_views_regex = r'\/|\b'.join([
       'registration',
       'payment',
       'requisites',
-      'currentBalance',
+      'currentbalance',
       'workspace',
 
 ]) + r'\/'
@@ -19,7 +19,7 @@ react_views_regex = r'\/|\b'.join([
 
 urlpatterns = [
     path('', react_app, name='react_app'),
-    path('admin/', admin.site.urls),
+    path('qweqweqwemnbmnbhatf/', admin.site.urls),
     path('auth/', include('user.urls')),
     path('api_V1/', include('control.urls')),   
     path('accounts/', include('django.contrib.auth.urls')),
