@@ -23,12 +23,12 @@ class Command(BaseCommand):
 
         for subscription in subscriptions:
             user = subscription.user
-            subject = 'Your subscription is expiring soon'
+            subject = 'Ваша подписка истекает'
             message = (
-                f'Hi {user.username},\n\n'
-                f'Your subscription is set to expire on {subscription.paid_subscription_expiry}. '
-                'Please renew it to avoid any interruption in your services.\n\n'
-                'Thank you,\nThe Team'
+                f'Уважаемый {user.username},\n\n'
+                f'Срок действия вашей подписки истекает {subscription.paid_subscription_expiry}. '
+                'Пожалуйста, продлите его, чтобы избежать перебоев в работе ваших служб.\n\n'
+                'Спасибо,\nКоманда StorageHills'
             )
             send_mail(
                 subject,
