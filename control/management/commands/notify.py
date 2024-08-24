@@ -25,10 +25,10 @@ class Command(BaseCommand):
             user = subscription.user
             subject = 'Ваша подписка истекает'
             message = (
-                f'Уважаемый {user.username},\n\n'
-                f'Срок действия вашей подписки истекает {subscription.paid_subscription_expiry}. '
-                'Пожалуйста, продлите его, чтобы избежать перебоев в работе ваших служб.\n\n'
-                'Спасибо,\nКоманда StorageHills'
+                f'Уважаемый пользователь!\n\n'
+                f'Мы рады сотрудничать с Вами! '
+                'Для продолжения сотрудничества - пожалуйста выберите необходимый Вам период и оплатите его.\n\n'
+                'С уважением, команда Storagehills.'
             )
             send_mail(
                 subject,
