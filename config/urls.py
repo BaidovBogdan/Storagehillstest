@@ -12,6 +12,7 @@ react_views_regex = r'\/|\b'.join([
       'requisites',
       'currentbalance',
       'workspace',
+      'instruction'
 
 ]) + r'\/'
 
